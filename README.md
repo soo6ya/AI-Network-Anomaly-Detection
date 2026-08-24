@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/soo6ya/AI-Network-Anomaly-Detection/releases">⬇️ Download Windows App</a>
+  <a href="https://github.com/soo6ya/AI-Network-Anomaly-Detection/releases/latest">⬇️ Download Windows App</a>
   •
   <a href="https://github.com/soo6ya/AI-Network-Anomaly-Detection/issues">🐛 Report an Issue</a>
 </p>
@@ -14,9 +14,9 @@
 
 ## 📌 Overview
 
-**AI Network Anomaly Detection** is a Python-based network monitoring tool that captures live network traffic, extracts traffic-level features, applies a machine-learning anomaly detector, and displays the results through a live Streamlit dashboard.
+**AI Network Anomaly Detection** is a Python-based network monitoring and anomaly-detection tool that captures live network traffic, extracts traffic-level features, applies a machine-learning model, and displays the results through a live Streamlit dashboard.
 
-The project combines **Scapy**, **Scikit-learn**, **Isolation Forest**, **Streamlit**, and **Windows notifications** to provide a practical cybersecurity monitoring workflow.
+The project combines **Scapy**, **Scikit-learn**, **Isolation Forest**, **Streamlit**, and **Windows notifications** to provide a practical network-security monitoring workflow.
 
 > ⚠️ This project is intended for educational purposes, cybersecurity learning, and authorized network monitoring.
 
@@ -33,7 +33,7 @@ The project combines **Scapy**, **Scikit-learn**, **Isolation Forest**, **Stream
 | 🔔 **Windows Notifications** | Sends desktop alerts for suspicious activity |
 | 🧪 **Scenario Testing** | Includes controlled testing scripts |
 | 🖥️ **Windows EXE** | Packaged standalone application available in Releases |
-| 🧾 **Alert History** | Keeps a dashboard history of suspicious events |
+| 🧾 **Alert History** | Maintains a history of detected suspicious events |
 
 ---
 
@@ -41,19 +41,7 @@ The project combines **Scapy**, **Scikit-learn**, **Isolation Forest**, **Stream
 
 The application provides a live dashboard for monitoring network activity.
 
-> 📸 **Add your dashboard screenshot here**
-
-Place your screenshot at:
-
-```text
-screenshots/dashboard.png
-```
-
-Then this section will display it:
-
-```markdown
 ![Network Tool Dashboard](screenshots/dashboard.png)
-```
 
 ### Dashboard Metrics
 
@@ -87,7 +75,7 @@ Then this section will display it:
            ▼
 ┌─────────────────────┐
 │   Isolation Forest  │
-│     ML Model        │
+│      ML Model       │
 └──────────┬──────────┘
            │
            ▼
@@ -103,7 +91,9 @@ Then this section will display it:
 └───────────┘ └───────────────┘
 ```
 
-The system analyzes traffic in **time-based windows** instead of treating every packet as an independent security event.
+The system analyzes network traffic in **time-based windows** rather than treating every packet as an independent security event.
+
+The extracted traffic features are passed to the trained machine-learning model, and the resulting anomaly information is combined with traffic context before being displayed on the dashboard.
 
 ---
 
@@ -121,7 +111,7 @@ The monitoring pipeline uses traffic-level characteristics such as:
 - Unique destination ports
 - Anomaly score
 
-These features are passed to the trained anomaly-detection model and then evaluated with additional traffic context.
+These features are evaluated over traffic windows to identify unusual network behavior.
 
 ---
 
@@ -135,29 +125,33 @@ The trained model is stored in:
 network_anomaly_model.pkl
 ```
 
-The live pipeline is approximately:
+### Detection Pipeline
 
 ```text
-Traffic
-   ↓
+Network Traffic
+       ↓
+Packet Capture
+       ↓
 Feature Extraction
-   ↓
+       ↓
 Feature Vector
-   ↓
+       ↓
 Isolation Forest
-   ↓
+       ↓
 Anomaly Score
-   ↓
+       ↓
 Contextual Analysis
-   ↓
+       ↓
 Dashboard / Notification
 ```
+
+Isolation Forest is used to identify traffic patterns that differ from the learned normal activity.
 
 ---
 
 ## 🛠️ Technology Stack
 
-### Core
+### Programming
 
 - 🐍 Python
 - 🎨 Streamlit
@@ -172,10 +166,13 @@ Dashboard / Notification
 - 🌲 Isolation Forest
 - 📦 Joblib
 
-### Data & Visualization
+### Data Processing
 
 - Pandas
 - NumPy
+
+### Visualization
+
 - Matplotlib
 
 ### Notifications
@@ -197,56 +194,58 @@ Dashboard / Notification
 - Npcap
 - Administrator privileges may be required for live packet capture
 
-### 1. Clone
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/soo6ya/AI-Network-Anomaly-Detection.git
 cd AI-Network-Anomaly-Detection
 ```
 
-### 2. Create a virtual environment
+### 2. Create a Virtual Environment
 
 ```bash
 python -m venv venv
 venv\Scripts\activate
 ```
 
-### 3. Install dependencies
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Start the dashboard
+### 4. Start the Dashboard
 
 ```bash
 python -m streamlit run dashboard.py
 ```
 
-Open the local Streamlit address shown in the terminal.
+The terminal will display the local Streamlit address.
 
-### 5. Start monitoring
+Open that address in your browser.
+
+### 5. Start Monitoring
 
 1. Open the dashboard.
 2. Click **START MONITORING**.
 3. Allow the application to capture network traffic.
-4. Observe the live metrics.
-5. Run controlled test scenarios when required.
+4. Observe the live monitoring metrics.
+5. Run controlled testing scenarios if required.
 
 ---
 
 ## 🪟 Windows EXE
 
-A packaged Windows version is available from the project's GitHub Releases.
+A standalone Windows version is available through the project's GitHub Releases.
 
-### Download
+### ⬇️ Download
 
-👉 **[Download the latest Windows release](https://github.com/soo6ya/AI-Network-Anomaly-Detection/releases/latest)**
+**[Download the latest Windows release](https://github.com/soo6ya/AI-Network-Anomaly-Detection/releases/latest)**
 
-### Run
+### Run the Application
 
-1. Download the ZIP.
-2. Extract it.
+1. Download the latest Windows ZIP.
+2. Extract the ZIP.
 3. Open the extracted `NetworkTool` folder.
 4. Run:
 
@@ -254,59 +253,99 @@ A packaged Windows version is available from the project's GitHub Releases.
 NetworkTool.exe
 ```
 
-5. The application starts the local dashboard.
-6. Open the displayed local address in your browser.
+5. The application starts the local Streamlit server.
+6. Open the displayed local dashboard address.
 7. Click **START MONITORING**.
 
-> The packaged application contains the required Python runtime and project dependencies.
+> The packaged application contains the required application runtime and Python dependencies.
 
 ---
 
 ## 🧪 Scenario Testing
 
-The repository includes scenario-based testing scripts.
+The project includes controlled scenario testing to validate the live monitoring and anomaly-detection pipeline.
 
-For example:
+Scenario testing allows the monitoring engine to be observed while specific traffic activity is generated.
+
+### Scenario 3
+
+The repository includes:
+
+```text
+scenario3_test.py
+```
+
+Run it from a **second terminal** while the Network Tool is already running:
 
 ```bash
 python scenario3_test.py
 ```
 
-A typical test setup is:
+### Recommended Test Setup
 
 ```text
-CMD 1
-│
-└── NetworkTool.exe
-       │
-       └── Dashboard + Live Monitoring
+┌──────────────────────────────┐
+│ CMD 1                        │
+│                              │
+│ NetworkTool.exe              │
+│        │                     │
+│        ▼                     │
+│ Live Monitoring Dashboard    │
+└──────────────┬───────────────┘
+               │
+               │ monitors
+               ▼
+        Network Traffic
 
 
-CMD 2
-│
-└── python scenario3_test.py
-       │
-       └── Controlled test traffic
+┌──────────────────────────────┐
+│ CMD 2                        │
+│                              │
+│ python scenario3_test.py     │
+│        │                     │
+│        ▼                     │
+│ Controlled Test Traffic      │
+└──────────────────────────────┘
 ```
 
-The dashboard can then be observed for:
+### What to Observe
 
-- Increased packet activity
-- New traffic windows
-- AI anomaly classifications
-- Changes in anomaly rate
-- Security alerts
-- Windows notifications
+While the scenario is running, monitor the dashboard for:
 
-> Only perform network testing on systems and networks you own or are explicitly authorized to monitor.
+- 📡 Increased packet activity
+- 📊 New traffic windows
+- 🤖 AI anomaly classifications
+- 📈 Changes in anomaly rate
+- 🚨 Security alerts
+- 🔔 Windows notifications
+
+The purpose of the scenario is to verify that the complete pipeline works from:
+
+```text
+Traffic Generation
+       ↓
+Packet Capture
+       ↓
+Feature Extraction
+       ↓
+AI Analysis
+       ↓
+Contextual Detection
+       ↓
+Dashboard
+       ↓
+Notification
+```
+
+> ⚠️ Only perform network testing on systems and networks that you own or are explicitly authorized to monitor.
 
 ---
 
 ## 🔔 Security Notifications
 
-When traffic satisfies the configured anomaly and contextual-risk conditions, the application can generate a Windows desktop notification.
+When network traffic satisfies the configured anomaly and contextual-risk conditions, the application can generate a Windows desktop notification.
 
-The dashboard also maintains a **Security Alert History** for detected suspicious events.
+The dashboard also maintains a **Security Alert History** for previously detected suspicious events.
 
 An anomaly should be treated as a **security signal for investigation**, not automatic proof of a cyberattack.
 
@@ -342,13 +381,16 @@ AI-Network-Anomaly-Detection/
 ├── network_anomaly_model.pkl
 ├── requirements.txt
 │
+├── screenshots/
+│   └── dashboard.png
+│
 ├── .streamlit/
 │   └── config.toml
 │
 └── README.md
 ```
 
-Generated captures, analysis CSV files, images, virtual environments, and PyInstaller build directories are excluded through `.gitignore`.
+Generated captures, CSV analysis files, images, virtual environments, and PyInstaller build directories are excluded through `.gitignore`.
 
 ---
 
@@ -356,15 +398,15 @@ Generated captures, analysis CSV files, images, virtual environments, and PyInst
 
 | File | Purpose |
 |---|---|
-| `dashboard.py` | Main Streamlit interface |
+| `dashboard.py` | Main Streamlit dashboard |
 | `live_engine.py` | Real-time monitoring engine |
 | `live_capture.py` | Live packet capture |
 | `feature_engineering.py` | Network feature extraction |
-| `network_anomaly_model.pkl` | Trained ML model |
-| `train_model.py` | Model training |
+| `network_anomaly_model.pkl` | Trained machine-learning model |
+| `train_model.py` | Model training workflow |
 | `predict.py` | Prediction workflow |
 | `scenario3_test.py` | Scenario-based testing |
-| `launcher.py` | Windows EXE launcher |
+| `launcher.py` | Windows application launcher |
 | `requirements.txt` | Python dependencies |
 
 ---
@@ -381,24 +423,30 @@ This project is designed for:
 
 **Only monitor networks and devices that you own or have explicit permission to analyze.**
 
-The tool is an anomaly-detection system and does not guarantee that every detected anomaly represents malicious activity.
+This tool is an anomaly-detection system and does not guarantee that every detected anomaly represents malicious activity.
 
 ---
 
 ## 📦 Release
 
-**Current Version:** `v1.0.0`
+### Current Version
 
-**Status:** 🟢 Working Release
+```text
+v1.0.0
+```
+
+### Status
+
+🟢 **Working Release**
 
 The current release includes:
 
-- Real-time network monitoring
-- AI-based anomaly detection
-- Live Streamlit dashboard
-- Windows security notifications
-- Scenario testing
-- Standalone Windows application
+- ✅ Real-time network monitoring
+- ✅ AI-based anomaly detection
+- ✅ Live Streamlit dashboard
+- ✅ Windows security notifications
+- ✅ Scenario testing
+- ✅ Standalone Windows application
 
 ---
 
@@ -410,11 +458,11 @@ The current release includes:
 
 GitHub:
 
-👉 **[github.com/soo6ya](https://github.com/soo6ya)**
+**[github.com/soo6ya](https://github.com/soo6ya)**
 
 Project:
 
-👉 **[AI-Network-Anomaly-Detection](https://github.com/soo6ya/AI-Network-Anomaly-Detection)**
+**[AI-Network-Anomaly-Detection](https://github.com/soo6ya/AI-Network-Anomaly-Detection)**
 
 ---
 
