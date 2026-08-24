@@ -9,7 +9,6 @@ import webbrowser
 # ============================================================
 
 import streamlit
-import streamlit_autorefresh
 import pandas
 import numpy
 import sklearn
@@ -58,7 +57,6 @@ def main():
         "dashboard.py"
     )
 
-
     print("=" * 60)
     print("NETWORK TOOL")
     print("=" * 60)
@@ -73,7 +71,6 @@ def main():
     )
 
     print()
-
 
     # ========================================================
     # CHECK DASHBOARD
@@ -95,7 +92,6 @@ def main():
 
         return
 
-
     # ========================================================
     # WORKING DIRECTORY
     # ========================================================
@@ -103,7 +99,6 @@ def main():
     os.chdir(
         base_directory
     )
-
 
     # ========================================================
     # STREAMLIT CONFIGURATION
@@ -133,13 +128,11 @@ def main():
         "STREAMLIT_BROWSER_GATHERUSAGESTATS"
     ] = "false"
 
-
     # ========================================================
     # IMPORT STREAMLIT BOOTSTRAP
     # ========================================================
 
     from streamlit.web import bootstrap
-
 
     # ========================================================
     # OPEN BROWSER
@@ -151,7 +144,6 @@ def main():
     )
 
     browser_thread.start()
-
 
     # ========================================================
     # STREAMLIT FLAGS
@@ -179,7 +171,6 @@ def main():
 
     }
 
-
     print(
         "Starting Network Tool..."
     )
@@ -194,11 +185,9 @@ def main():
 
     print()
 
-
     # ========================================================
     # START STREAMLIT
     #
-    # IMPORTANT:
     # The second argument is False.
     # This prevents Streamlit from interpreting the
     # command-line string as the is_hello parameter.
