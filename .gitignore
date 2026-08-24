@@ -102,3 +102,6 @@ dist/
 # ============================================================
 
 .streamlit/secrets.toml
+
+# Release packages
+*.zip
