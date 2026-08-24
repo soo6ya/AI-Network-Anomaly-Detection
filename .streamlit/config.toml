@@ -1,0 +1,13 @@
+[global]
+developmentMode = false
+
+[server]
+address = "localhost"
+port = 8501
+headless = true
+fileWatcherType = "none"
+
+[browser]
+serverAddress = "localhost"
+serverPort = 8501
+gatherUsageStats = false
