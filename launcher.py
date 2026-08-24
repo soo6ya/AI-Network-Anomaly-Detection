@@ -24,6 +24,7 @@ import winotify
 def get_base_directory():
 
     if getattr(sys, "frozen", False):
+
         return sys._MEIPASS
 
     return os.path.dirname(
@@ -40,7 +41,7 @@ def open_browser():
     time.sleep(5)
 
     webbrowser.open(
-        "http://localhost:8501"
+        "http://127.0.0.1:8501"
     )
 
 
@@ -101,7 +102,7 @@ def main():
     )
 
     # ========================================================
-    # STREAMLIT CONFIGURATION
+    # STREAMLIT ENVIRONMENT
     # ========================================================
 
     os.environ[
@@ -114,7 +115,7 @@ def main():
 
     os.environ[
         "STREAMLIT_SERVER_ADDRESS"
-    ] = "localhost"
+    ] = "127.0.0.1"
 
     os.environ[
         "STREAMLIT_SERVER_PORT"
@@ -125,14 +126,170 @@ def main():
     ] = "none"
 
     os.environ[
+        "STREAMLIT_BROWSER_SERVERADDRESS"
+    ] = "127.0.0.1"
+
+    os.environ[
+        "STREAMLIT_BROWSER_SERVERPORT"
+    ] = "8501"
+
+    os.environ[
         "STREAMLIT_BROWSER_GATHERUSAGESTATS"
     ] = "false"
 
     # ========================================================
-    # IMPORT STREAMLIT BOOTSTRAP
+    # STREAMLIT CONFIGURATION
+    # ========================================================
+
+    from streamlit import config
+
+    config.set_option(
+        "server.address",
+        "127.0.0.1"
+    )
+
+    config.set_option(
+        "server.port",
+        8501
+    )
+
+    config.set_option(
+        "server.headless",
+        True
+    )
+
+    config.set_option(
+        "server.fileWatcherType",
+        "none"
+    )
+
+    config.set_option(
+        "browser.serverAddress",
+        "127.0.0.1"
+    )
+
+    config.set_option(
+        "browser.serverPort",
+        8501
+    )
+
+    config.set_option(
+        "browser.gatherUsageStats",
+        False
+    )
+
+    config.set_option(
+        "global.developmentMode",
+        False
+    )
+
+    # ========================================================
+    # STREAMLIT BOOTSTRAP
     # ========================================================
 
     from streamlit.web import bootstrap
+
+    # ========================================================
+    # STREAMLIT FLAGS
+    # ========================================================
+
+    flag_options = {
+
+        "server.address":
+            "127.0.0.1",
+
+        "server.port":
+            8501,
+
+        "server.headless":
+            True,
+
+        "server.fileWatcherType":
+            "none",
+
+        "browser.serverAddress":
+            "127.0.0.1",
+
+        "browser.serverPort":
+            8501,
+
+        "browser.gatherUsageStats":
+            False,
+
+        "global.developmentMode":
+            False
+
+    }
+
+    # ========================================================
+    # LOAD STREAMLIT CONFIGURATION
+    # ========================================================
+
+    bootstrap.load_config_options(
+        flag_options=flag_options
+    )
+
+    # ========================================================
+    # RE-APPLY CRITICAL SETTINGS
+    # ========================================================
+
+    flag_options[
+        "server.address"
+    ] = "127.0.0.1"
+
+    flag_options[
+        "server.port"
+    ] = 8501
+
+    flag_options[
+        "server.headless"
+    ] = True
+
+    flag_options[
+        "server.fileWatcherType"
+    ] = "none"
+
+    flag_options[
+        "browser.serverAddress"
+    ] = "127.0.0.1"
+
+    flag_options[
+        "browser.serverPort"
+    ] = 8501
+
+    flag_options[
+        "browser.gatherUsageStats"
+    ] = False
+
+    flag_options[
+        "global.developmentMode"
+    ] = False
+
+    # ========================================================
+    # STARTUP MESSAGE
+    # ========================================================
+
+    print(
+        "Starting Network Tool..."
+    )
+
+    print()
+
+    print(
+        "Dashboard:"
+    )
+
+    print(
+        "http://127.0.0.1:8501"
+    )
+
+    print()
+
+    print(
+        "Streamlit server will use port 8501."
+    )
+
+    print()
 
     # ========================================================
     # OPEN BROWSER
@@ -146,51 +303,7 @@ def main():
     browser_thread.start()
 
     # ========================================================
-    # STREAMLIT FLAGS
-    # ========================================================
-
-    flag_options = {
-
-        "server.address":
-            "localhost",
-
-        "server.port":
-            8501,
-
-        "server.headless":
-            True,
-
-        "server.fileWatcherType":
-            "none",
-
-        "browser.gatherUsageStats":
-            False,
-
-        "global.developmentMode":
-            False
-
-    }
-
-    print(
-        "Starting Network Tool..."
-    )
-
-    print(
-        "Dashboard:"
-    )
-
-    print(
-        "http://localhost:8501"
-    )
-
-    print()
-
-    # ========================================================
     # START STREAMLIT
-    #
-    # The second argument is False.
-    # This prevents Streamlit from interpreting the
-    # command-line string as the is_hello parameter.
     # ========================================================
 
     bootstrap.run(
